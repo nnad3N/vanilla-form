@@ -1,0 +1,79 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Montserrat', sans-serif;
+	background-color: $bg-color;
+	color: $color;
+}
+
+html {
+	font-size: 10px;
+
+	@include laptop {
+		font-size: 50%;
+	}
+
+	@include mobile {
+		font-size: 45%;
+	}
+}
+
+#main-wrapper {
+	transition: transform 0.5s ease-in-out;
+}
+
+a {
+	color: $color;
+	text-decoration: none;
+
+	&:visited {
+		color: $color;
+	}
+}
+
+path,
+svg {
+	pointer-events: none;
+}
+
+h1 {
+	font-size: 3.6rem;
+	text-align: center;
+}
+
+p {
+	font-size: 2.2rem;
+	text-align: justify;
+}
+
+button {
+	cursor: pointer;
+	height: 6rem;
+	width: 20rem;
+	background-color: rgba($color: #000000, $alpha: 0);
+	border: 4px white solid;
+	border-radius: 5rem;
+	display: block;
+	margin: 6rem auto 0 auto;
+	color: $color;
+	font-size: 2.2rem;
+	transition: border 0.2s ease-out;
+
+	@include laptop {
+		height: 6rem;
+		width: 16rem;
+	}
+
+	&:hover {
+		border-color: $accent;
+	}
+}
+
+input,
+textarea {
+	font-family: 'Montserrat', sans-serif;
+}

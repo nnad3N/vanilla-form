@@ -1,0 +1,124 @@
+.form-wrapper {
+	padding: $site-padding-top $site-padding;
+
+	@include mobile {
+		padding: $site-padding-top $site-padding-mob;
+	}
+}
+
+form {
+	width: 44vw;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	h1 {
+		margin: 0 auto;
+	}
+
+	@include tablet {
+		width: 70rem;
+	}
+
+	@include mobile {
+		width: 100%;
+
+		h1 {
+			margin: 2rem auto;
+		}
+	}
+}
+
+label {
+	margin: 2rem 0 0 0;
+	font-size: 2.2rem;
+}
+
+input,
+textarea {
+	padding: 1.5rem 0;
+	outline: none;
+	color: $color;
+	background-color: rgba($color: #000000, $alpha: 0);
+	border: none;
+	border-bottom: 2px white solid;
+	font-size: 2rem;
+	transition: border-color 0.2s ease-out;
+
+	&:hover,
+	&:focus {
+		border-color: $accent;
+	}
+}
+
+textarea {
+	border-bottom: 3px white solid;
+	margin-top: 1.5rem;
+}
+
+.form-row {
+	display: flex;
+	flex-direction: column;
+}
+
+#form-status {
+	font-size: 3rem;
+	margin: 3rem auto 1.5rem auto;
+	border-bottom: 2px solid;
+	display: none;
+
+	&.active {
+		display: block;
+	}
+
+	@include mobile {
+		margin: 1.5rem auto;
+	}
+}
+
+.error {
+	color: $error;
+	border-color: $error;
+
+	&:hover,
+	&:focus {
+		color: $error;
+		border-color: $error;
+	}
+
+	#form-status {
+		color: blue !important;
+	}
+}
+
+.success {
+	color: $accent;
+	border-color: $accent;
+
+	&:hover,
+	&:focus {
+		color: $accent;
+		border-color: $accent;
+	}
+}
+
+#form-button:disabled {
+	opacity: 0.4;
+	cursor: default;
+
+	&:hover {
+		border-color: unset;
+	}
+}
+
+.form-hidden {
+	display: none;
+}
+
+.error-text {
+	font-size: 1.6rem;
+	color: $error;
+	margin-top: 1rem;
+	font-weight: bold;
+}
