@@ -134,10 +134,10 @@ const init = () => {
 		const { sanitizedFormName, sanitizedFormSurname, sanitizedFormEmail, sanitizedFormMessage } = sanitizeFormValues();
 
 		return {
-			name: sanitizedFormName,
-			surname: sanitizedFormSurname,
-			email: sanitizedFormEmail,
-			message: sanitizedFormMessage,
+			formName: sanitizedFormName,
+			formSurname: sanitizedFormSurname,
+			formEmail: sanitizedFormEmail,
+			formMessage: sanitizedFormMessage,
 		};
 	};
 
