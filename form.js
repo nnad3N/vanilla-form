@@ -104,7 +104,7 @@ const init = () => {
 	};
 
 	const onSuccess = () => {
-		formInputs.forEach((formInput) => formInput.addEventListener('focus', afterSuccess));
+		formInputs.forEach((formInput) => formInput.addEventListener('focus', afterSubmit));
 		formStatus.innerText = 'Formularz został wysłany!';
 		formStatus.classList.add('success');
 		formStatus.classList.add('active');
@@ -117,15 +117,31 @@ const init = () => {
 		});
 	};
 
-	const afterSuccess = () => {
+	const onError = ({ message }) => {
+		formInputs.forEach((formInput) => formInput.addEventListener('focus', afterSubmit));
+		formStatus.innerText = message;
+		formStatus.classList.add('error');
+		formStatus.classList.add('active');
+		formButton.classList.add('error');
+
+		formInputs.forEach((input) => {
+			input.value = '';
+			input.classList.add('error');
+			formButton.disabled = true;
+		});
+	};
+
+	const afterSubmit = () => {
 		const successes = document.querySelectorAll('.success');
+		const errors = document.querySelectorAll('.error');
 		formStatus.innerText = '';
 		formStatus.className = '';
 		formButton.disabled = false;
 
 		successes.forEach((success) => success.classList.remove('success'));
+		errors.forEach((error) => error.classList.remove('error'));
 
-		formInputs.forEach((input) => input.removeEventListener('focus', afterSuccess));
+		formInputs.forEach((input) => input.removeEventListener('focus', afterSubmit));
 	};
 
 	const handleFormValues = () => {
@@ -141,22 +157,31 @@ const init = () => {
 		};
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		validateFormValues();
 
 		if (errors.length > 0) {
 			console.error('Form contains errors');
-		} else {
-			const formValues = handleFormValues();
+			return;
+		}
 
-			fetch('/', {
+		const formValues = handleFormValues();
+
+		try {
+			const res = await fetch('/', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 				body: `form-name=${form.getAttribute('name')}&${new URLSearchParams(formValues).toString()}`,
-			})
-				.then(() => onSuccess())
-				.catch((error) => console.error(error));
+			});
+
+			if (!res.ok) {
+				throw new Error('Coś poszło nie tak :/');
+			}
+
+			onSuccess();
+		} catch (error) {
+			onError(error);
 		}
 	};
 
