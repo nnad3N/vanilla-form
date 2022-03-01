@@ -42,7 +42,10 @@ const init = () => {
 		for (const key in form.elements) {
 			const element = form[key];
 			if (element?.name?.includes('form')) {
-				sanitizedValues = { ...sanitizedValues, [createKey(element.name)]: DOMPurify.sanitize(element.value) };
+				sanitizedValues = {
+					...sanitizedValues,
+					[createKey(element.name)]: DOMPurify.sanitize(element.value),
+				};
 			}
 		}
 
