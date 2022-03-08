@@ -39,15 +39,12 @@ const init = () => {
 	const sanitizeFormValues = () => {
 		let sanitizedValues = {};
 
-		for (const key in form.elements) {
-			const element = form[key];
-			if (element?.name?.includes('form')) {
-				sanitizedValues = {
-					...sanitizedValues,
-					[createKey(element.name)]: DOMPurify.sanitize(element.value),
-				};
-			}
-		}
+		formInputs.forEach((input) => {
+			sanitizedValues = {
+				...sanitizedValues,
+				[createKey(input.name)]: DOMPurify.sanitize(input.value),
+			};
+		});
 
 		return sanitizedValues;
 	};
@@ -112,11 +109,11 @@ const init = () => {
 		formStatus.classList.add('success');
 		formStatus.classList.add('active');
 		formButton.classList.add('success');
+		formButton.disabled = true;
 
 		formInputs.forEach((input) => {
 			input.value = '';
 			input.classList.add('success');
-			formButton.disabled = true;
 		});
 	};
 
@@ -126,11 +123,11 @@ const init = () => {
 		formStatus.classList.add('error');
 		formStatus.classList.add('active');
 		formButton.classList.add('error');
+		formButton.disabled = true;
 
 		formInputs.forEach((input) => {
 			input.value = '';
 			input.classList.add('error');
-			formButton.disabled = true;
 		});
 	};
 
